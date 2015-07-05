@@ -8,7 +8,7 @@ From the Command Line:
 
 `bower install angular-rock`
 
-In your composer.json:
+In your bower.json:
 
 ```json
 {
