@@ -23,9 +23,8 @@
          * @param $translateProvider
          * @param $provide
          */
-    function configRock($httpProvider, $translateProvider, $provide){
-
-        console.log('config rock');
+    function configRock($httpProvider, $translateProvider, $provide)
+    {
         // configure http
         $httpProvider.defaults.headers.common['Content-Type'] = 'application/json';
         $httpProvider.interceptors.push(httpProvider);
@@ -35,7 +34,8 @@
         $provide.value('rock', {lang: lang});
     }
 
-    function i18nProvider($translateProvider) {
+    function i18nProvider($translateProvider)
+    {
         var nav = window.navigator,
             lang = (
             angular.element(document.querySelector( 'html' )).attr('lang') || nav.language ||
