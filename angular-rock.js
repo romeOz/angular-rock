@@ -1,3 +1,10 @@
+/*
+ * angular-rock
+ * https://github.com/romeOz/angular-rock
+ *
+ * Version: 0.10.0
+ * License: MIT
+ */
 (function () {
     'use strict';
 

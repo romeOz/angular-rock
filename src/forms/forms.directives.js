@@ -254,7 +254,7 @@
             link: function($scope, $element, $attr, $ngModel) {
                 var template;
                 if (!(template = $templateCache.get('form/reset-field-icon'))) {
-                    template = '<i ng-show="enabled" ng-mousedown="resetField()" class="glyphicon glyphicon-remove-circle right-inner"></i>';
+                    template = '<i ng-show="enabled" ng-mousedown="resetField()" class="glyphicon glyphicon-remove-circle reset-icon"></i>';
                     $templateCache.put('form/reset-field-icon', template);
                 }
                 // limit to input element of specific types
