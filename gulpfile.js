@@ -30,7 +30,6 @@ gulp.task('js', function() {
         'src/notifications/notification.services.js',
         'src/forms/forms.js',
         'src/forms/forms.directives.js',
-        'src/forms/forms.services.js',
         'src/forms/forms.controllers.js'
     ])
         .pipe(concat('angular-rock.js'))
