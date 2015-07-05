@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('rock.core.notification.services', [])
+        .module('rock.notification.services', [])
         .provider('notification', notification);
 
     /**

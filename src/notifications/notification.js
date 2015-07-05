@@ -1,10 +1,10 @@
 (function () {
     'use strict';
     angular
-        .module('rock.core.notification',
+        .module('rock.notification',
         [
-            'rock.core.notification.controllers',
-            'rock.core.notification.services'
+            'rock.notification.controllers',
+            'rock.notification.services'
         ]
     );
 

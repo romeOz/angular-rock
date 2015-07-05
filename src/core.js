@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('rock.core',
+    angular.module('rock',
         [
             'pascalprecht.translate',
             'rock.helpers',

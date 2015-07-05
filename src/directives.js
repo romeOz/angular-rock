@@ -1,7 +1,7 @@
 (function () {
     'use strict';
     angular
-        .module('rock.core.directives', [])
+        .module('rock.directives', [])
         .directive('bindCompiledHtml', bindCompiledHtml)
         .directive('rockMetaCsrf', rockMetaCsrf)
         .directive('rockUrl', rockUrl);

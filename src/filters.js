@@ -1,7 +1,7 @@
 (function () {
     'use strict';
     angular
-        .module('rock.core.filters', [])
+        .module('rock.filters', [])
         .filter('unsafe', unsafe)
         .filter('byKeys', byKeys);
 

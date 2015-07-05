@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('rock.core.helpers', [])
+        .module('rock.helpers', [])
         .factory('stringHelper', stringHelper)
         .factory('collectionHelper', collectionHelper)
         .factory('alias', alias);

@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('rock.core.services', [])
+        .module('rock.services', [])
         .factory('userUtils', userUtils)
         .provider('formUtils', formUtils)
         .provider('httpUtils', httpUtils)

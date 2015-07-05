@@ -1,11 +1,11 @@
 (function () {
     'use strict';
     angular
-        .module('rock.core.forms',
+        .module('rock.forms',
         [
-            'rock.core.forms.controllers',
-            'rock.core.forms.services',
-            'rock.core.forms.directives'
+            'rock.forms.controllers',
+            'rock.forms.services',
+            'rock.forms.directives'
         ]
     );
 })();

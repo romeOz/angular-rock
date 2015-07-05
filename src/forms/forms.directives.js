@@ -2,7 +2,7 @@
     'use strict';
     angular
         .module(
-            'rock.core.forms.directives',
+            'rock.forms.directives',
             [
                 'ui.bootstrap.progressbar',
                 'template/progressbar/progress.html',

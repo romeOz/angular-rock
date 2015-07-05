@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('rock.core.notification.controllers', ['ui.bootstrap', 'ngAnimate'])
+        .module('rock.notification.controllers', ['ui.bootstrap', 'ngAnimate'])
         .controller('NotificationController', NotificationController);
 
     NotificationController.$inject = ['$scope', 'notification'];

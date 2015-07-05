@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('rock.core.forms.controllers', ['pascalprecht.translate'])
+        .module('rock.forms.controllers', ['pascalprecht.translate'])
         .controller('RockFormController', RockFormController)
         .filter('normalizeAlerts', normalizeAlerts);
 
