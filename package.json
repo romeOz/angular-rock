@@ -12,6 +12,7 @@
     "gulp-csso": "*",
     "gulp-rename": "*",
     "gulp-concat": "*",
+    "gulp-wrapper": "*",
     "gulp-uglify": "*",
     "gulp-gzip": "*"
   }

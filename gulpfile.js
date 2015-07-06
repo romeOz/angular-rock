@@ -3,6 +3,7 @@ var gulp = require('gulp'),
     csso = require('gulp-csso'),
     rename = require('gulp-rename'),
     concat = require('gulp-concat'),
+    wrapper = require('gulp-wrapper'),
     uglify = require('gulp-uglify'),
     gzip = require('gulp-gzip');
 
@@ -33,6 +34,10 @@ gulp.task('js', function() {
         'src/forms/forms.controllers.js'
     ])
         .pipe(concat('angular-rock.js'))
+        .pipe(wrapper({
+            header: '(function () {\n\'use strict\';\n\n',
+            footer: '})();'
+        }))
         .pipe(gulp.dest('.'))
         .pipe(uglify())
         .pipe(rename({suffix:".min"}))
