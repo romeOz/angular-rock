@@ -35,7 +35,8 @@ gulp.task('js', function() {
     ])
         .pipe(concat('angular-rock.js'))
         .pipe(wrapper({
-            header: '(function () {\n\'use strict\';\n\n',
+            header: '/*\n* angular-rock\n* https://github.com/romeOz/angular-rock\n*\n* Version: 0.10.0\n* License: MIT\n*/\n' +
+            '(function () {\n\'use strict\';\n\n',
             footer: '})();'
         }))
         .pipe(gulp.dest('.'))
