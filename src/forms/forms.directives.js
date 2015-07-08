@@ -1,31 +1,30 @@
 angular
     .module(
-        'rock.forms.directives',
-        [
-            'ui.bootstrap.progressbar',
-            'template/progressbar/progress.html',
-            'template/progressbar/progressbar.html'
-        ]
-    )
+    'rock.forms.directives',
+    [
+        'ui.bootstrap.progressbar',
+        'template/progressbar/progress.html',
+        'template/progressbar/progressbar.html'
+    ]
+)
     .directive('rockFormFocus', rockFormFocus)
     .directive('rockPasswordStrong', rockPasswordStrong)
     .directive('rockMatch', rockMatch)
     .directive('rockResetField', rockResetField)
     .directive('rockResetFieldIcon', rockResetFieldIcon);
 
-function rockMatch()
-{
+function rockMatch() {
     return {
         require: 'ngModel',
         restrict: 'A',
         scope: {
             match: '=rockMatch'
         },
-        link: function($scope, $element, attrs, ctrl) {
-            $scope.$watch(function() {
+        link: function ($scope, $element, attrs, ctrl) {
+            $scope.$watch(function () {
                 var modelValue = ctrl.$modelValue || ctrl.$$invalidModelValue;
                 return (ctrl.$pristine && angular.isUndefined(modelValue)) || $scope.match === modelValue;
-            }, function(currentValue) {
+            }, function (currentValue) {
                 ctrl.$setValidity('match', currentValue);
             });
         }
@@ -33,33 +32,32 @@ function rockMatch()
 }
 
 rockFormFocus.$inject = ['$timeout'];
-function rockFormFocus($timeout){
+function rockFormFocus($timeout) {
     var FOCUS_CLASS = "ng-focused";
     return {
         restrict: 'A',
         require: 'ngModel',
-        link: function(scope, element, attrs, ctrl) {
+        link: function (scope, element, attrs, ctrl) {
             ctrl.$focused = false;
-            element.bind('focus', function(evt) {
+            element.bind('focus', function () {
                 element.addClass(FOCUS_CLASS);
-                $timeout(function() {
+                $timeout(function () {
                     ctrl.$focused = false;
                 }, 0);
-            }).bind('blur', function(evt) {
+            }).bind('blur', function () {
                 element.removeClass(FOCUS_CLASS);
-                $timeout(function() {
+                $timeout(function () {
                     ctrl.$focused = true;
                 }, 0);
             });
         }
-    }
+    };
 }
 
 rockPasswordStrong.$inject = ['stringHelper', '$templateCache'];
-function rockPasswordStrong(StringHelper, $templateCache)
-{
+function rockPasswordStrong(StringHelper, $templateCache) {
     if (!$templateCache.get('form/strong-password')) {
-        $templateCache.put('form/strong-password',  '<progressbar value="value" type="{{class}}">{{value}}%</progressbar>');
+        $templateCache.put('form/strong-password', '<progressbar value="value" type="{{class}}">{{value}}%</progressbar>');
     }
     return {
         templateUrl: 'form/strong-password',
@@ -67,9 +65,9 @@ function rockPasswordStrong(StringHelper, $templateCache)
         scope: {
             pwd: '=rockPasswordStrong'
         },
-        link: function(scope) {
+        link: function (scope) {
             var
-                mesureStrength = function(p) {
+                mesureStrength = function (p) {
                     var matches = {
                             pos: {},
                             neg: {}
@@ -105,7 +103,7 @@ function rockPasswordStrong(StringHelper, $templateCache)
                         counts.pos.numbers = matches.pos.numbers ? matches.pos.numbers.length : 0;
                         counts.pos.symbols = matches.pos.symbols ? matches.pos.symbols.length : 0;
 
-                        tmp = _.reduce(counts.pos, function(memo, val) {
+                        tmp = _.reduce(counts.pos, function (memo, val) {
                             // if has count will add 1
                             return memo + Math.min(1, val);
                         }, 0);
@@ -159,13 +157,13 @@ function rockPasswordStrong(StringHelper, $templateCache)
 
                         // repeated chars
                         counts.neg.repeated = _.chain(p.toLowerCase().split('')).
-                            countBy(function(val) {
+                            countBy(function (val) {
                                 return val;
                             })
-                            .reject(function(val) {
+                            .reject(function (val) {
                                 return val === 1;
                             })
-                            .reduce(function(memo, val) {
+                            .reduce(function (memo, val) {
                                 return memo + val;
                             }, 0)
                             .value();
@@ -206,7 +204,7 @@ function rockPasswordStrong(StringHelper, $templateCache)
                     return Math.max(0, Math.min(100, Math.round(strength)));
                 },
 
-                getClass = function(s) {
+                getClass = function (s) {
                     switch (Math.round(s / 33)) {
                         case 0:
                         case 1:
@@ -220,7 +218,7 @@ function rockPasswordStrong(StringHelper, $templateCache)
                 };
 
 
-            scope.$watch('pwd', function() {
+            scope.$watch('pwd', function () {
                 scope.value = mesureStrength(scope.pwd);
                 scope.class = getClass(scope.value);
             });
@@ -229,12 +227,12 @@ function rockPasswordStrong(StringHelper, $templateCache)
     };
 }
 
-function rockResetField(){
+function rockResetField() {
     return {
         restrict: 'A',
         require: 'ngModel',
-        link: function($scope, element, attrs, ctrl) {
-            $scope.$watch('isSend()', function(value){
+        link: function ($scope, element, attrs, ctrl) {
+            $scope.$watch('isSend()', function (value) {
                 if (value === true) {
                     ctrl.$setViewValue(undefined);
                     ctrl.$setPristine(true);
@@ -242,14 +240,14 @@ function rockResetField(){
                 }
             });
         }
-    }
+    };
 }
 
 rockResetFieldIcon.$inject = ['$compile', '$templateCache', 'notification'];
-function rockResetFieldIcon($compile, $templateCache, notification){
+function rockResetFieldIcon($compile, $templateCache, notification) {
     return {
         require: 'ngModel',
-        link: function($scope, $element, $attr, $ngModel) {
+        link: function ($scope, $element, $attr, $ngModel) {
             var template;
             if (!(template = $templateCache.get('form/reset-field-icon'))) {
                 template = '<i ng-show="enabled" ng-mousedown="resetField()" class="glyphicon glyphicon-remove-circle reset-icon"></i>';
@@ -269,19 +267,19 @@ function rockResetFieldIcon($compile, $templateCache, notification){
             // compiled reset icon template
             template = $compile(template)($scope);
             $element.after(template);
-            $scope.resetField = function() {
+            $scope.resetField = function () {
                 $ngModel.$setViewValue(undefined);
                 $ngModel.$setPristine(true);
                 $ngModel.$render();
             };
-            $element.bind('input', function() {
+            $element.bind('input', function () {
                 $scope.enabled = !$ngModel.$isEmpty($element.val());
             })
-                .bind('focus', function() {
+                .bind('focus', function () {
                     $scope.enabled = !$ngModel.$isEmpty($element.val());
                     $scope.$apply();
                 })
-                .bind('blur', function() {
+                .bind('blur', function () {
                     $scope.enabled = false;
                     $scope.$apply();
                 });

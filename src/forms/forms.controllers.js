@@ -4,12 +4,12 @@ angular
     .filter('normalizeAlerts', normalizeAlerts);
 
 /**
-     * @ngdoc filter
-     * @name normalizeAlerts
-     */
+ * @ngdoc filter
+ * @name normalizeAlerts
+ */
 normalizeAlerts.$inject = ['httpUtils'];
-function normalizeAlerts(httpUtils){
-    return function(inputs, unique) {
+function normalizeAlerts(httpUtils) {
+    return function (inputs, unique) {
         if (inputs) {
             if (unique === undefined) {
                 unique = true;
@@ -34,27 +34,26 @@ RockFormController.$inject = ['$scope', '$http', '$translate', 'csrfUtils', 'for
  * @ngInject
  * @export
  */
-function RockFormController($scope, $http, $translate, csrfUtils, formUtils, userUtils, notification)
-{
+function RockFormController($scope, $http, $translate, csrfUtils, formUtils, userUtils, notification) {
     $scope.response = {};
     $scope.sending = false;
     $scope.class = 'alert-danger';
     $scope.formName = null;
     $scope.validateOnChanged = false;
     /**
-         * Is send http-request.
-         * @return {boolean}
-         */
-    $scope.isSend = function(){
+     * Is send http-request.
+     * @return {boolean}
+     */
+    $scope.isSend = function () {
         return $scope.sending;
     };
 
     /**
-         * Adds alert message by attribute.
-         * @param {string} attributeName
-         * @param {string} msg
-         */
-    $scope.addAlert = function(attributeName, msg){
+     * Adds alert message by attribute.
+     * @param {string} attributeName
+     * @param {string} msg
+     */
+    $scope.addAlert = function (attributeName, msg) {
         if (!$scope.response.messages) {
             $scope.response.messages = {};
         }
@@ -62,10 +61,10 @@ function RockFormController($scope, $http, $translate, csrfUtils, formUtils, use
     };
 
     /**
-         * Returns alert by attribute.
-         * @return {string|undefined}
-         */
-    $scope.getAlert = function(attributeName){
+     * Returns alert by attribute.
+     * @return {string|undefined}
+     */
+    $scope.getAlert = function (attributeName) {
         if (!$scope.isAlerts()) {
             return undefined;
         }
@@ -73,26 +72,26 @@ function RockFormController($scope, $http, $translate, csrfUtils, formUtils, use
     };
 
     /**
-         * Returns list alerts.
-         * @return {Object}
-         */
-    $scope.getAlerts = function(){
+     * Returns list alerts.
+     * @return {Object}
+     */
+    $scope.getAlerts = function () {
         return $scope.response.messages;
     };
 
     /**
-         * Is alerts.
-         * @return {boolean}
-         */
-    $scope.isAlerts = function(){
+     * Is alerts.
+     * @return {boolean}
+     */
+    $scope.isAlerts = function () {
         return !!$scope.response.messages;
     };
 
     /**
-         * Exists alert by attribute.
-         * @return {boolean}
-         */
-    $scope.existsAlert = function(attributeName){
+     * Exists alert by attribute.
+     * @return {boolean}
+     */
+    $scope.existsAlert = function (attributeName) {
         if (!$scope.isAlerts()) {
             return false;
         }
@@ -100,17 +99,17 @@ function RockFormController($scope, $http, $translate, csrfUtils, formUtils, use
     };
 
     /**
-         * Reset `$scope.response`.
-         */
-    $scope.clear = function(){
+     * Reset `$scope.response`.
+     */
+    $scope.clear = function () {
         $scope.response = {};
     };
 
     /**
-         * Pristine value.
-         * @param {string} attributeName
-         * @returns {boolean}
-         */
+     * Pristine value.
+     * @param {string} attributeName
+     * @returns {boolean}
+     */
     $scope.pristine = function (attributeName) {
         var formName = $scope.formName;
         if (!$scope[formName] || !$scope[formName][attributeName]) {
@@ -120,10 +119,10 @@ function RockFormController($scope, $http, $translate, csrfUtils, formUtils, use
     };
 
     /**
-         * Invalid value.
-         * @param {string} attributeName
-         * @returns {boolean}
-         */
+     * Invalid value.
+     * @param {string} attributeName
+     * @returns {boolean}
+     */
     $scope.invalid = function (attributeName) {
         var formName = $scope.formName;
         if (!$scope[formName] || !$scope[formName][attributeName]) {
@@ -133,20 +132,20 @@ function RockFormController($scope, $http, $translate, csrfUtils, formUtils, use
     };
 
     /**
-         * Bind error.
-         * @param {string} attributeName
-         * @return {string|undefined}
-         */
+     * Bind error.
+     * @param {string} attributeName
+     * @return {string|undefined}
+     */
     $scope.bindError = function (attributeName) {
         return $scope.getAlert(attributeName);
     };
 
     /**
-         * Show error.
-         * @param {string} attributeName
-         * @param {string} ruleName
-         * @returns {boolean}
-         */
+     * Show error.
+     * @param {string} attributeName
+     * @param {string} ruleName
+     * @returns {boolean}
+     */
     $scope.showError = function (attributeName, ruleName) {
         var formName = $scope.formName;
 
@@ -155,18 +154,18 @@ function RockFormController($scope, $http, $translate, csrfUtils, formUtils, use
         }
         if (!!$scope.validateOnChanged) {
             return ($scope[formName][attributeName].$dirty || $scope[formName].$submitted) &&
-            ($scope[formName][attributeName].$focused || $scope[formName].$submitted) &&
-            $scope[formName][attributeName].$error[ruleName];
+                ($scope[formName][attributeName].$focused || $scope[formName].$submitted) &&
+                $scope[formName][attributeName].$error[ruleName];
         }
         return ($scope[formName][attributeName].$dirty || $scope[formName].$submitted) &&
-        $scope[formName][attributeName].$error[ruleName];
+            $scope[formName][attributeName].$error[ruleName];
     };
 
     /**
-         * Hide error.
-         * @param {string} attributeName
-         * @returns {boolean}
-         */
+     * Hide error.
+     * @param {string} attributeName
+     * @returns {boolean}
+     */
     $scope.hideError = function (attributeName) {
         var formName = $scope.formName;
         if (!$scope[formName] || !$scope[formName][attributeName]) {
@@ -176,10 +175,10 @@ function RockFormController($scope, $http, $translate, csrfUtils, formUtils, use
     };
 
     /**
-         * Highlighting input.
-         * @param {string} attributeName
-         * @return {string}
-         */
+     * Highlighting input.
+     * @param {string} attributeName
+     * @return {string}
+     */
     $scope.showHighlightError = function (attributeName) {
         var formName = $scope.formName;
         if (!$scope[formName] || !$scope[formName][attributeName]) {
@@ -194,19 +193,19 @@ function RockFormController($scope, $http, $translate, csrfUtils, formUtils, use
     };
 
     /**
-         * Returns `src` of captcha.
-         * @return {string}
-         */
-    $scope.getCaptcha = function(){
+     * Returns `src` of captcha.
+     * @return {string}
+     */
+    $scope.getCaptcha = function () {
         return $scope.response.captcha;
     };
 
     /**
-         * Reload captcha.
-         * @param {string} url
-         * @param {Event} $event
-         */
-    $scope.reloadCaptcha = function(url, $event) {
+     * Reload captcha.
+     * @param {string} url
+     * @param {Event} $event
+     */
+    $scope.reloadCaptcha = function (url, $event) {
         if (!url) {
             return;
         }
@@ -222,10 +221,10 @@ function RockFormController($scope, $http, $translate, csrfUtils, formUtils, use
     };
 
     /**
-         * Submit form
-         * @param {string} url
-         * @param {Event} $event
-         */
+     * Submit form
+     * @param {string} url
+     * @param {Event} $event
+     */
     $scope.submit = function (url, $event) {
         var formName,
             data = {};
@@ -263,10 +262,10 @@ function RockFormController($scope, $http, $translate, csrfUtils, formUtils, use
     };
 
     /**
-         * @param {string} url
-         * @param {Event} $e
-         */
-    $scope.logout = function(url, $e){
+     * @param {string} url
+     * @param {Event} $e
+     */
+    $scope.logout = function (url, $e) {
         if (!url) {
             return;
         }
@@ -274,7 +273,7 @@ function RockFormController($scope, $http, $translate, csrfUtils, formUtils, use
         userUtils.logout(url);
     };
 
-    function httpSuccess (data){
+    function httpSuccess(data) {
         $scope.sending = false;
         //$scope.$root.$broadcast('onHttpFormSuccess');
         if (!data) {
@@ -282,7 +281,7 @@ function RockFormController($scope, $http, $translate, csrfUtils, formUtils, use
         }
         $scope.class = 'alert-success';
         $translate('lang.success')
-            .then(function(msg){
+            .then(function (msg) {
                 if (!$scope.response.messages) {
                     $scope.response.messages = [];
                 }
@@ -290,7 +289,7 @@ function RockFormController($scope, $http, $translate, csrfUtils, formUtils, use
             });
     }
 
-    function httpFail(data, status){
+    function httpFail(data, status) {
         $scope.sending = false;
         $scope.class = 'alert-danger';
         //$scope.$root.$broadcast('onHttpFormFail');

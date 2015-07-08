@@ -10,20 +10,20 @@ rockMetaCsrf.$inject = ['csrfUtils'];
  * @name metaCsrf
  * @restrict A
  */
-function rockMetaCsrf(csrfUtils){
+function rockMetaCsrf(csrfUtils) {
     return {
-        restrict : 'A',
-        link: function($scope, $element) {
-            $scope.$root.$watch(function(){
+        restrict: 'A',
+        link: function ($scope, $element) {
+            $scope.$root.$watch(function () {
                 return csrfUtils.getToken();
-            }, function(value) {
+            }, function (value) {
                 if (!value) {
                     return;
                 }
                 $element.attr('content', value);
             });
         }
-    }
+    };
 }
 
 /**
@@ -34,12 +34,12 @@ function rockMetaCsrf(csrfUtils){
 bindCompiledHtml.$inject = ['$compile'];
 function bindCompiledHtml($compile) {
     return {
-        restrict : 'A',
+        restrict: 'A',
         scope: {
             rawHtml: '=bindCompiledHtml'
         },
-        link: function($scope, $element) {
-            $scope.$watch('rawHtml', function(value) {
+        link: function ($scope, $element) {
+            $scope.$watch('rawHtml', function (value) {
                 if (!value) return;
                 // we want to use the scope OUTSIDE of this directive
                 // (which itself is an isolate scope).
@@ -49,7 +49,7 @@ function bindCompiledHtml($compile) {
                 $element.append(newElem);
             });
         }
-    }
+    };
 }
 
 /**
@@ -57,13 +57,13 @@ function bindCompiledHtml($compile) {
  * @name rockUrl
  * @restrict A
  */
-function rockUrl(){
+function rockUrl() {
     return {
-        restrict : 'A',
+        restrict: 'A',
         scope: {
             options: '=rockUrl'
         },
-        link: function($scope, $elem, $attr) {
+        link: function ($scope, $elem, $attr) {
             if (!$scope.options || !angular.isObject($scope.options)) {
                 return;
             }
@@ -77,15 +77,17 @@ function rockUrl(){
             }
             var url = URI($attr[attribute]);
 
-            if (options.self){
-                url.pathname(URI().pathname())
+            if (options.self) {
+                url.pathname(URI().pathname());
             }
             $elem.attr(attribute, url);
             if (!options.csrf) {
                 return;
             }
 
-            $scope.$root.$watch(function(scope){return scope.rock.csrf.getToken()}, function(value) {
+            $scope.$root.$watch(function (scope) {
+                return scope.rock.csrf.getToken();
+            }, function (value) {
                 if (!value) {
                     return;
                 }

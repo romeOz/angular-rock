@@ -8,24 +8,24 @@ angular
  * @name unsafe
  */
 unsafe.$inject = ['$sce'];
-function unsafe($sce){
-    return function(value){
+function unsafe($sce) {
+    return function (value) {
         if (typeof value === 'undefined' || value === null) {
             return '';
         }
         return $sce.trustAsHtml(value);
-    }
+    };
 }
 
 /**
  * @ngdoc filter
  * @name byKeys
  */
-function byKeys(){
-    return function(inputs, attrubutes) {
+function byKeys() {
+    return function (inputs, attrubutes) {
         if (inputs && angular.isObject(inputs)) {
-            inputs = _.filter(inputs, function(value, attribute){
-                return _.contains(attrubutes,  attribute);
+            inputs = _.filter(inputs, function (value, attribute) {
+                return _.contains(attrubutes, attribute);
             });
             if (_.isEmpty(inputs)) {
                 return null;

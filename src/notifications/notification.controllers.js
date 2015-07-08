@@ -3,15 +3,14 @@ angular
     .controller('NotificationController', NotificationController);
 
 NotificationController.$inject = ['$scope', 'notification'];
-function NotificationController($scope, notification)
-{
+function NotificationController($scope, notification) {
     $scope.notifications = notification.getAll();
-    $scope.merge = function(messages){
-        notification.merge(messages)
+    $scope.merge = function (messages) {
+        notification.merge(messages);
     };
 
     $scope.closeable = true;
-    $scope.closeAlert = function(index) {
+    $scope.closeAlert = function (index) {
         notification.remove(index);
     };
 }
