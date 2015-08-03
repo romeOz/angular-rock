@@ -278,11 +278,9 @@ function rockResetFieldIcon($compile, $templateCache, notification) {
             })
                 .bind('focus', function () {
                     $scope.enabled = !$ngModel.$isEmpty($element.val());
-                    $scope.$apply();
                 })
                 .bind('blur', function () {
                     $scope.enabled = false;
-                    $scope.$apply();
                 });
         }
     };
