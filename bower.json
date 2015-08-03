@@ -1,6 +1,6 @@
 {
   "name": "angular-rock",
-  "version": "0.10.1",
+  "version": "0.10.2",
   "description":"Client side for Rock Framework using the AngularJS",
   "keywords":["angular","rock framework","widget"],
   "authors": [

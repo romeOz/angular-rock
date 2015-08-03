@@ -1143,7 +1143,7 @@ angular
     ]
 );
 angular
-    .module('rock.notification.controllers', ['ui.bootstrap', 'ngAnimate'])
+    .module('rock.notification.controllers', ['ui.bootstrap'])
     .controller('NotificationController', NotificationController);
 
 NotificationController.$inject = ['$scope', 'notification'];
@@ -1421,8 +1421,8 @@ function rockFormFocus($timeout) {
     };
 }
 
-rockPasswordStrong.$inject = ['stringHelper', '$templateCache'];
-function rockPasswordStrong(StringHelper, $templateCache) {
+rockPasswordStrong.$inject = ['$animate', 'stringHelper', '$templateCache'];
+function rockPasswordStrong($animate, StringHelper, $templateCache) {
     if (!$templateCache.get('form/strong-password')) {
         $templateCache.put('form/strong-password', '<progressbar value="value" type="{{class}}">{{value}}%</progressbar>');
     }
@@ -1432,7 +1432,8 @@ function rockPasswordStrong(StringHelper, $templateCache) {
         scope: {
             pwd: '=rockPasswordStrong'
         },
-        link: function (scope) {
+        link: function (scope, element) {
+            $animate.enabled(element, false);
             var
                 mesureStrength = function (p) {
                     var matches = {
@@ -1644,11 +1645,9 @@ function rockResetFieldIcon($compile, $templateCache, notification) {
             })
                 .bind('focus', function () {
                     $scope.enabled = !$ngModel.$isEmpty($element.val());
-                    $scope.$apply();
                 })
                 .bind('blur', function () {
                     $scope.enabled = false;
-                    $scope.$apply();
                 });
         }
     };
