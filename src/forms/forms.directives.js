@@ -54,8 +54,8 @@ function rockFormFocus($timeout) {
     };
 }
 
-rockPasswordStrong.$inject = ['stringHelper', '$templateCache'];
-function rockPasswordStrong(StringHelper, $templateCache) {
+rockPasswordStrong.$inject = ['$animate', 'stringHelper', '$templateCache'];
+function rockPasswordStrong($animate, StringHelper, $templateCache) {
     if (!$templateCache.get('form/strong-password')) {
         $templateCache.put('form/strong-password', '<progressbar value="value" type="{{class}}">{{value}}%</progressbar>');
     }
@@ -65,7 +65,8 @@ function rockPasswordStrong(StringHelper, $templateCache) {
         scope: {
             pwd: '=rockPasswordStrong'
         },
-        link: function (scope) {
+        link: function (scope, element) {
+            $animate.enabled(element, false);
             var
                 mesureStrength = function (p) {
                     var matches = {

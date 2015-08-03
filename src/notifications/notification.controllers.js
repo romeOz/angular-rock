@@ -1,5 +1,5 @@
 angular
-    .module('rock.notification.controllers', ['ui.bootstrap', 'ngAnimate'])
+    .module('rock.notification.controllers', ['ui.bootstrap'])
     .controller('NotificationController', NotificationController);
 
 NotificationController.$inject = ['$scope', 'notification'];
