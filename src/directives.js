@@ -2,7 +2,7 @@ angular
     .module('rock.directives', [])
     .directive('bindCompiledHtml', bindCompiledHtml)
     .directive('rockMetaCsrf', rockMetaCsrf)
-    .directive('rockUrl', rockUrl);
+    .directive('rockModifyLink', rockModifyLink);
 
 rockMetaCsrf.$inject = ['csrfUtils'];
 /**
@@ -57,17 +57,22 @@ function bindCompiledHtml($compile) {
  * @name rockUrl
  * @restrict A
  */
-function rockUrl() {
+/**
+ * @ngdoc directive
+ * @name rockModifyLink
+ * @restrict A
+ */
+function rockModifyLink() {
     return {
         restrict: 'A',
         scope: {
-            options: '=rockUrl'
+            options: '=rockModifyLink'
         },
         link: function ($scope, $elem, $attr) {
             if (!$scope.options || !angular.isObject($scope.options)) {
                 return;
             }
-            var attribute = 'href',
+            var attribute = tagName($elem[0]) === 'form' ? 'action' : 'href',
                 options = $scope.options;
             if (options.attr) {
                 attribute = options.attr;
@@ -95,4 +100,8 @@ function rockUrl() {
             });
         }
     };
+
+    function tagName(elem){
+        return angular.lowercase(elem.tagName || elem.nodeName);
+    }
 }
