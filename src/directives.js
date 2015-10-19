@@ -54,11 +54,6 @@ function bindCompiledHtml($compile) {
 
 /**
  * @ngdoc directive
- * @name rockUrl
- * @restrict A
- */
-/**
- * @ngdoc directive
  * @name rockModifyLink
  * @restrict A
  */
@@ -83,8 +78,36 @@ function rockModifyLink() {
             var url = URI($attr[attribute]);
 
             if (options.self) {
+                if (options.scheme === 'abs') {
+                    url.scheme(URI().scheme());
+                    url.host(URI().hostname());
+                    url.port(URI().port());
+                    url.username(URI().username());
+                    url.password(URI().password());
+                }
                 url.pathname(URI().pathname());
             }
+
+            if (options.modify) {
+                angular.forEach(options.modify, function(value, key){
+                    if (isNumeric(key)) {
+                        if (value) {
+                            if (value === '!#') {
+                                url.hash('');
+                            } else if (value === '!') {
+                                url.search('');
+                            } else if (value[0] === '!') {
+                                url.removeSearch(value.substr(1,value.length));
+                            }
+                        }
+                    } else if (key === '#') {
+                        url.hash(value);
+                    } else {
+                        url.addSearch(key, value);
+                    }
+                });
+            }
+
             $elem.attr(attribute, url);
             if (!options.csrf) {
                 return;
@@ -103,5 +126,8 @@ function rockModifyLink() {
 
     function tagName(elem){
         return angular.lowercase(elem.tagName || elem.nodeName);
+    }
+    function isNumeric(n) {
+        return !isNaN(parseFloat(n)) && isFinite(n);
     }
 }
